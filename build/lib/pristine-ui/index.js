@@ -1,1 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});require("../components/button/index.js");const e=require("./installer.js");exports.default=e.installer;
