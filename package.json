@@ -1,0 +1,43 @@
+{
+  "name": "pristine-ui",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@8.15.4",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:lint-staged": "lint-staged",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.21.1",
+    "@pristine/components": "workspace:*",
+    "@pristine/constants": "workspace:*",
+    "@types/node": "^20.14.2",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^8.56.0",
+    "eslint-plugin-format": "^0.1.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.9.1",
+    "vue-tsc": "^2.0.6"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,cjs,mjs,json}": [
+      "eslint --fix"
+    ]
+  }
+}
