@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});function r(n){const t=n;return t.install=o=>{const e=n.name;if(!e)throw new Error("Component name must be provided!");o.component(e,t)},t}exports.withInstall=r;
