@@ -10,4 +10,6 @@ defineOptions({
   </button>
 </template>
 
-<style scoped src="../../theme-chalk/button.css"></style>
+<style scoped lang="css">
+@import "../../theme-chalk/button.css";
+</style>
