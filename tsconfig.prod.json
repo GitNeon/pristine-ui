@@ -8,7 +8,8 @@
   "include": [
     "packages/**/*.vue",
     "packages/**/*.d.ts",
-    "packages/**/*.ts"
+    "packages/**/*.ts",
+    "packages/type.d.ts"
   ],
   "exclude": [
     "./packages/main.ts",

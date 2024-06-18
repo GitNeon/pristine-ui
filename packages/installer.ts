@@ -4,7 +4,7 @@
  * @Description: file content
  */
 import type { App } from 'vue';
-import * as allComponents from '../components/index';
+import * as allComponents from '@/index';
 
 export function installer(app: App) {
   for (const key in allComponents) {

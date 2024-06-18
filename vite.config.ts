@@ -27,7 +27,7 @@ export default defineConfig({
     cssCodeSplit: true,
     // 库模式，该选项将项目构建为库，entry不能使用html作为入口
     lib: {
-      entry: path.resolve(__dirname, './packages/pristine-ui/index.ts'),
+      entry: path.resolve(__dirname, './packages/index.ts'),
       name: 'PristineUI', // 暴露全局的变量
       fileName: format => `pristine-ui.${format}.js`, // 输出的包文件名
       // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
@@ -70,6 +70,10 @@ export default defineConfig({
   plugins: [
     vue(),
     // 打包出ts类型标注
+    dts({
+      tsconfigPath: './tsconfig.prod.json',
+      outDir: 'build/dist',
+    }),
     dts({
       tsconfigPath: './tsconfig.prod.json',
       outDir: 'build/lib',

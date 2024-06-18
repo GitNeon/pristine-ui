@@ -1,0 +1,12 @@
+{
+  "name": "pristine-ui-beta",
+  "version": "0.0.4",
+  "description": "A Vue3 UI Components Library",
+  "main": "./lib/pristine-ui/index.js",
+  "module": "./es/pristine-ui/index.js",
+  "types": "./es/pristine-ui/index.d.ts",
+  "style": "dist/index.css",
+  "keywords": ["UI Libraty", "vue3"],
+  "author": "yunyan",
+  "license": "ISC"
+}
