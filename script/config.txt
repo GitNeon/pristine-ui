@@ -1,2 +1,0 @@
-name=pristine-ui-beta
-version=0.0.6

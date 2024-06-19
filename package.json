@@ -7,8 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build && node script/create-pkg.cjs",
+    "dev": "pnpm run -C packages/pristine-ui dev",
+    "build": "pnpm run -C packages/pristine-ui build && node script/create-pkg.cjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -22,8 +22,10 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
-    "@pristine/components": "workspace:*",
-    "@pristine/constants": "workspace:*",
+    "@pristine-ui/components": "workspace:*",
+    "@pristine-ui/constants": "workspace:*",
+    "@pristine-ui/hooks": "workspace:^",
+    "@pristine-ui/utils": "workspace:^",
     "@types/node": "^20.14.2",
     "@vitejs/plugin-vue": "^5.0.4",
     "eslint": "^8.56.0",

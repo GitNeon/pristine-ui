@@ -1,7 +1,11 @@
 {
-  "name": "@pristine/components",
+  "name": "@pristine-ui/components",
   "version": "0.0.1",
   "description": "all components be here",
   "main": "index.ts",
-  "module": "index.ts"
+  "module": "index.ts",
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.4.21"
+  }
 }

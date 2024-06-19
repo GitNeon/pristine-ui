@@ -1,0 +1,9 @@
+{
+  "name": "@pristine-ui/hooks",
+  "version": "0.0.1",
+  "description": "a hook tools use for Pristine UI",
+  "license": "MIT",
+  "main": "inde.ts",
+  "module": "index.ts",
+  "types": "index.d.ts"
+}

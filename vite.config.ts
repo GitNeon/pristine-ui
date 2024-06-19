@@ -2,10 +2,10 @@ import { resolve } from 'node:path';
 import * as path from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   resolve: {
     alias: [
       {
@@ -27,7 +27,7 @@ export default defineConfig({
     cssCodeSplit: true,
     // 库模式，该选项将项目构建为库，entry不能使用html作为入口
     lib: {
-      entry: path.resolve(__dirname, './packages/index.ts'),
+      entry: path.resolve(__dirname, './packages/pristine-ui/index.ts'),
       name: 'PristineUI', // 暴露全局的变量
       fileName: () => `index.js`, // 输出的包文件名
       // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
@@ -43,18 +43,26 @@ export default defineConfig({
        */
       output: [
         {
-          format: 'es', // 打包后的js格式，这里为es module
+          format: 'umd', // 打包后的js格式 umd
+          entryFileNames: 'index.full.js',
           exports: 'named', // 指定导出模式，对于TS、Webpack等来说，应该使用使用named命名模式
           name: 'PristineUI', // 全局变量名,同一页面上的其他脚本可以使用这个变量名来访问你的 bundle 输出
-          dir: './build/dist', // 指定打包路径
+          dir: path.resolve(__dirname, 'build/dist'), // 指定打包路径
+        },
+        {
+          format: 'es', // 打包成es module格式
+          entryFileNames: 'index.full.mjs',
+          exports: 'named',
+          name: 'PristineUI',
+          dir: path.resolve(__dirname, 'build/dist'), // 指定打包路径
         },
         {
           format: 'es',
-          entryFileNames: '[name].js', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
+          entryFileNames: '[name].mjs', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
           exports: 'named',
           preserveModules: true, // 使用原始模块名作为文件名
           preserveModulesRoot: 'packages', // 简单来说打包后保持源码当中的文件夹结构
-          dir: './build/es',
+          dir: path.resolve(__dirname, 'build/es'),
         },
         {
           format: 'cjs',
@@ -62,7 +70,7 @@ export default defineConfig({
           exports: 'named',
           preserveModules: true,
           preserveModulesRoot: 'packages',
-          dir: './build/lib',
+          dir: path.resolve(__dirname, 'build/lib'),
         },
       ],
     },
@@ -70,18 +78,10 @@ export default defineConfig({
   plugins: [
     vue(),
     // 打包出ts类型标注
-    dts({
-      tsconfigPath: './tsconfig.prod.json',
-      outDir: 'build/dist',
-      rollupTypes: true,
-    }),
-    dts({
-      tsconfigPath: './tsconfig.prod.json',
-      outDir: 'build/lib',
-    }),
-    dts({
-      tsconfigPath: './tsconfig.prod.json',
-      outDir: 'build/es',
-    }),
+    // dts({
+    //   tsconfigPath: './tsconfig.prod.json',
+    //   rollupTypes: true,
+    //   outDir: ['build/dist'],
+    // }),
   ],
 });

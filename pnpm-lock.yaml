@@ -21,12 +21,18 @@ importers:
       '@antfu/eslint-config':
         specifier: ^2.21.1
         version: 2.21.1(@vue/compiler-sfc@3.4.27)(eslint-plugin-format@0.1.1)(eslint@8.57.0)(typescript@5.4.5)
-      '@pristine/components':
+      '@pristine-ui/components':
         specifier: workspace:*
         version: link:packages/components
-      '@pristine/constants':
+      '@pristine-ui/constants':
         specifier: workspace:*
         version: link:packages/constants
+      '@pristine-ui/hooks':
+        specifier: workspace:^
+        version: link:packages/hooks
+      '@pristine-ui/utils':
+        specifier: workspace:^
+        version: link:packages/utils
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
@@ -58,9 +64,15 @@ importers:
         specifier: ^2.0.6
         version: 2.0.21(typescript@5.4.5)
 
-  packages/components: {}
+  packages/components:
+    dependencies:
+      vue:
+        specifier: ^3.4.21
+        version: 3.4.27(typescript@5.4.5)
 
   packages/constants: {}
+
+  packages/hooks: {}
 
   packages/pristine-ui:
     devDependencies:
@@ -73,6 +85,8 @@ importers:
       vue-router:
         specifier: ^4.3.3
         version: 4.3.3(vue@3.4.27)
+
+  packages/utils: {}
 
 packages:
 
@@ -1154,7 +1168,7 @@ packages:
       '@volar/language-core': 1.11.1
       '@volar/source-map': 1.11.1
       '@vue/compiler-dom': 3.4.27
-      '@vue/shared': 3.4.27
+      '@vue/shared': 3.4.29
       computeds: 0.0.1
       minimatch: 9.0.4
       muggle-string: 0.3.1
@@ -1173,7 +1187,7 @@ packages:
     dependencies:
       '@volar/language-core': 2.3.0
       '@vue/compiler-dom': 3.4.27
-      '@vue/shared': 3.4.27
+      '@vue/shared': 3.4.29
       computeds: 0.0.1
       minimatch: 9.0.4
       path-browserify: 1.0.1
@@ -1226,7 +1240,6 @@ packages:
 
   /@vue/shared@3.4.29:
     resolution: {integrity: sha512-hQ2gAQcBO/CDpC82DCrinJNgOHI2v+FA7BDW4lMSPeBpQ7sRe2OLHWe5cph1s7D8DUQAwRt18dBDfJJ220APEA==}
-    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.11.3):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
