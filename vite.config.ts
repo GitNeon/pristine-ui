@@ -29,7 +29,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, './packages/index.ts'),
       name: 'PristineUI', // 暴露全局的变量
-      fileName: format => `pristine-ui.${format}.js`, // 输出的包文件名
+      fileName: () => `index.js`, // 输出的包文件名
       // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
       // formats: ["es", "cjs"],                                            // 分别输出为esModule, commonJs
     },
@@ -73,6 +73,7 @@ export default defineConfig({
     dts({
       tsconfigPath: './tsconfig.prod.json',
       outDir: 'build/dist',
+      rollupTypes: true,
     }),
     dts({
       tsconfigPath: './tsconfig.prod.json',

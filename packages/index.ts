@@ -6,5 +6,5 @@
 import { installer } from '@/installer';
 import '@/theme-chalk/common/root.css';
 
-export * from '@/index';
+export * from '@/components';
 export default installer;

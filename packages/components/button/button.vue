@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ButtonProps } from './button.ts';
+import type { ButtonProps } from '@/components/button/button.ts';
 
 defineOptions({
   name: 'PButton',

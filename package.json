@@ -1,7 +1,6 @@
 {
   "name": "pristine-ui",
   "type": "module",
-  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@8.15.4",
   "workspaces": [
@@ -9,7 +8,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc && vite build && node script/create-pkg.cjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -17,6 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@vue/runtime-core": "^3.4.29",
     "vue": "^3.4.21",
     "vue-router": "^4.3.3"
   },
