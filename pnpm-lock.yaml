@@ -61,7 +61,7 @@ importers:
         specifier: ^3.9.1
         version: 3.9.1(@types/node@20.14.2)(typescript@5.4.5)(vite@5.2.13)
       vue-tsc:
-        specifier: ^2.0.6
+        specifier: ^2.0.21
         version: 2.0.21(typescript@5.4.5)
 
   packages/components:
@@ -75,16 +75,10 @@ importers:
   packages/hooks: {}
 
   packages/pristine-ui:
-    devDependencies:
-      '@types/node':
-        specifier: '*'
-        version: 20.14.2
+    dependencies:
       vue:
         specifier: ^3.4.21
         version: 3.4.27(typescript@5.4.5)
-      vue-router:
-        specifier: ^4.3.3
-        version: 4.3.3(vue@3.4.27)
 
   packages/utils: {}
 
@@ -1156,6 +1150,7 @@ packages:
 
   /@vue/devtools-api@6.6.3:
     resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
+    dev: false
 
   /@vue/language-core@1.8.27(typescript@5.4.5):
     resolution: {integrity: sha512-L8Kc27VdQserNaCUNiSFdDl9LWT24ly8Hpwf1ECy3aFb9m6bDhBGQYOujDm21N7EW3moKIOKEanQwe1q5BK+mA==}
@@ -3628,6 +3623,7 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.27(typescript@5.4.5)
+    dev: false
 
   /vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}

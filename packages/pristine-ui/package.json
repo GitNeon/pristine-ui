@@ -7,6 +7,12 @@
     "type": "git",
     "url": "https://github.com/GitNeon/pristine-ui.git"
   },
+  "keywords": [
+    "pristine-ui",
+    "vue3 components",
+    "ui library",
+    "ui framework"
+  ],
   "exports": {
     ".": {
       "types": "./es/index.d.ts",
@@ -31,5 +37,10 @@
   },
   "peerDependencies": {
     "vue": "^3.4.21"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ]
 }

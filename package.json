@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "pnpm run -C packages/pristine-ui dev",
-    "build": "pnpm run -C packages/pristine-ui build && node script/create-pkg.cjs",
+    "build": "pnpm run -C packages/pristine-ui build && node script/post-task.cjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -35,7 +35,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.1",
-    "vue-tsc": "^2.0.6"
+    "vue-tsc": "^2.0.21"
   },
   "lint-staged": {
     "*.{js,ts,vue,cjs,mjs,json}": [

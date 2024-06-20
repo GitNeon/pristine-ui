@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import * as path from 'node:path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
@@ -17,6 +18,7 @@ export default defineConfig({
   build: {
     // 构建输出目录
     outDir: 'build',
+    emptyOutDir: true,
     /**
      * 构建目标版本，兼容至ES5，但不包含polyfill
      * 传统浏览器可以通过插件 @vitejs/plugin-legacy 来支持，
@@ -44,6 +46,9 @@ export default defineConfig({
       output: [
         {
           format: 'umd', // 打包后的js格式 umd
+          globals: {
+            vue: 'Vue',
+          },
           entryFileNames: 'index.full.js',
           exports: 'named', // 指定导出模式，对于TS、Webpack等来说，应该使用使用named命名模式
           name: 'PristineUI', // 全局变量名,同一页面上的其他脚本可以使用这个变量名来访问你的 bundle 输出
@@ -78,10 +83,12 @@ export default defineConfig({
   plugins: [
     vue(),
     // 打包出ts类型标注
-    // dts({
-    //   tsconfigPath: './tsconfig.prod.json',
-    //   rollupTypes: true,
-    //   outDir: ['build/dist'],
-    // }),
+    dts({
+      tsconfigPath: path.resolve(__dirname, 'tsconfig.prod.json'),
+      outDir: [
+        path.resolve(__dirname, 'build/es'),
+        path.resolve(__dirname, 'build/lib'),
+      ],
+    }),
   ],
 });
