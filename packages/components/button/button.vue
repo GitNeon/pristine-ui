@@ -2,7 +2,7 @@
 import type { ButtonProps } from '@/components/button/button.ts';
 
 defineOptions({
-  name: 'PButton',
+  name: 'PriButton',
 });
 
 /**

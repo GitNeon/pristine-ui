@@ -11,7 +11,6 @@
     "packages/**/*.ts"
   ],
   "exclude": [
-    "./packages/main.ts",
     "node_modules"
   ]
 }
