@@ -1,6 +1,6 @@
-import Button from './button.vue';
-import { withInstall } from '@/utils/install';
+import Button from './src/button.vue';
+import { withInstall } from '@/utils';
 
-export type { ButtonInstance } from './instance';
-export const PButton = withInstall(Button);
-export default PButton;
+export const PriButton = withInstall(Button);
+
+export default PriButton;

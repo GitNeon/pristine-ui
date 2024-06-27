@@ -50,6 +50,15 @@ function removeFiles(dirPath) {
   }
 }
 
+function rewriteDeclareFiles() {
+  fs.readFile(path.resolve(__dirname, "../typings/components.d.ts"), "utf8", (err, data) => {
+    if (err) throw err;
+    const modifiedData = data.replace(/..\/packages\/index/g, 'pristine-ui');
+    fs.writeFile(path.resolve(__dirname, "../build", "global.d.ts"), modifiedData, "utf8", (err) => {});
+  });
+}
+
 exports.copyFiles = copyFiles;
 exports.moveFiles = moveFiles;
 exports.removeFiles = removeFiles;
+exports.rewriteDeclareFiles = rewriteDeclareFiles;

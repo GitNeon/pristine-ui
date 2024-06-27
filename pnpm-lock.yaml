@@ -8,19 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@vue/runtime-core':
-        specifier: ^3.4.29
-        version: 3.4.29
-      vue:
-        specifier: ^3.4.21
-        version: 3.4.27(typescript@5.4.5)
-      vue-router:
-        specifier: ^4.3.3
-        version: 4.3.3(vue@3.4.27)
-    devDependencies:
-      '@antfu/eslint-config':
-        specifier: ^2.21.1
-        version: 2.21.1(@vue/compiler-sfc@3.4.27)(eslint-plugin-format@0.1.1)(eslint@8.57.0)(typescript@5.4.5)
       '@pristine-ui/components':
         specifier: workspace:*
         version: link:packages/components
@@ -33,6 +20,13 @@ importers:
       '@pristine-ui/utils':
         specifier: workspace:^
         version: link:packages/utils
+      '@vue/runtime-core':
+        specifier: ^3.4.29
+        version: 3.4.29
+    devDependencies:
+      '@antfu/eslint-config':
+        specifier: ^2.21.1
+        version: 2.21.1(@vue/compiler-sfc@3.4.27)(eslint-plugin-format@0.1.1)(eslint@8.57.0)(typescript@5.4.5)
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
@@ -60,6 +54,12 @@ importers:
       vite-plugin-dts:
         specifier: ^3.9.1
         version: 3.9.1(@types/node@20.14.2)(typescript@5.4.5)(vite@5.2.13)
+      vue:
+        specifier: ^3.4.21
+        version: 3.4.27(typescript@5.4.5)
+      vue-router:
+        specifier: ^4.3.3
+        version: 4.3.3(vue@3.4.27)
       vue-tsc:
         specifier: ^2.0.21
         version: 2.0.21(typescript@5.4.5)
@@ -73,12 +73,6 @@ importers:
   packages/constants: {}
 
   packages/hooks: {}
-
-  packages/pristine-ui:
-    dependencies:
-      vue:
-        specifier: ^3.4.21
-        version: 3.4.27(typescript@5.4.5)
 
   packages/utils: {}
 
@@ -1150,7 +1144,7 @@ packages:
 
   /@vue/devtools-api@6.6.3:
     resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
-    dev: false
+    dev: true
 
   /@vue/language-core@1.8.27(typescript@5.4.5):
     resolution: {integrity: sha512-L8Kc27VdQserNaCUNiSFdDl9LWT24ly8Hpwf1ECy3aFb9m6bDhBGQYOujDm21N7EW3moKIOKEanQwe1q5BK+mA==}
@@ -3623,7 +3617,7 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.27(typescript@5.4.5)
-    dev: false
+    dev: true
 
   /vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}

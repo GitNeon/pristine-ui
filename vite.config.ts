@@ -29,7 +29,7 @@ export default defineConfig({
     cssCodeSplit: true,
     // 库模式，该选项将项目构建为库，entry不能使用html作为入口
     lib: {
-      entry: path.resolve(__dirname, './packages/pristine-ui/index.ts'),
+      entry: path.resolve(__dirname, './packages/index.ts'),
       name: 'PristineUI', // 暴露全局的变量
       fileName: () => `index.js`, // 输出的包文件名
       // "build.lib.formats" will be ignored because "build.rollupOptions.output" is already an array format.
@@ -63,7 +63,7 @@ export default defineConfig({
         },
         {
           format: 'es',
-          entryFileNames: '[name].mjs', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
+          entryFileNames: '[name].js', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
           exports: 'named',
           preserveModules: true, // 使用原始模块名作为文件名
           preserveModulesRoot: 'packages', // 简单来说打包后保持源码当中的文件夹结构

@@ -4,10 +4,10 @@
  * @Description: file content
  */
 import type { App } from 'vue';
-import * as allComponents from './index';
+import * as AllComponents from './components/index';
 
 export function installer(app: App) {
-  for (const key in allComponents) {
-    app.use(allComponents[key as never]);
+  for (const key in AllComponents) {
+    app.use(AllComponents[key as never]);
   }
 }
