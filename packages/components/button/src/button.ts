@@ -16,6 +16,10 @@ export interface ButtonProps {
    */
   plain?: boolean;
   /**
+   * @description 是否为圆角按钮
+   */
+  round?: boolean;
+  /**
    * @description 是否为文字按钮
    */
   text?: boolean;
@@ -39,4 +43,8 @@ export interface ButtonProps {
    * @description 原生button属性
    */
   nativeType?: NativeButtonType;
+}
+
+export interface ButtonEmit {
+  (e: 'click', event: MouseEvent): void;
 }

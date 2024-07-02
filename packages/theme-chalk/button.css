@@ -1,27 +1,107 @@
 .pri-button {
   outline: none;
   background-color: transparent;
-  height: 32px;
   line-height: 1;
   cursor: pointer;
+  padding: 8px 15px;
   box-sizing: border-box;
   white-space: nowrap;
-  padding: 8px 15px;
   color: var(--base-font-color);
   border: var(--base-border);
   border-radius: var(--base-border-radius);
-  font-size: var(--base-font-size);
 }
 
 .pri-button:hover {
-  border-color: var(--primary-color-2);
-  background-color: var(--white-color);
+  border-color: var(--active-border-color);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .pri-button:active {
-  border-color: var(--primary-color);
+  border-color: var(--active-border-color);
+}
+
+.pri-button.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pri-button.primary {
+  background-color: var(--primary-color-2);
+  --base-border: 1px solid var(--primary-color-2);
+  color: var(--white-color);
+}
+
+.pri-button.success {
+  background-color: var(--success-color-2);
+  --base-border: 1px solid var(--success-color-2);
+  --active-border-color: var(--success-color);
+  color: var(--white-color);
+}
+
+.pri-button.info {
+  background-color: var(--info-color-2);
+  --base-border: 1px solid var(--info-color-2);
+  --active-border-color: var(--info-color);
+  color: var(--white-color);
+}
+
+.pri-button.warning {
+  background-color: var(--warning-color);
+  --base-border: 1px solid var(--warning-color);
+  --active-border-color: var(--warning-color);
+  color: var(--white-color);
+}
+
+.pri-button.danger {
+  background-color: var(--danger-color-2);
+  --base-border: 1px solid var(--danger-color-2);
+  --active-border-color: var(--danger-color);
+  color: var(--white-color);
+}
+
+.pri-button.round {
+  border-radius: var(--base-border-round);
+}
+
+.pri-button.circle {
+  width: 32px;
+  padding: 8px;
+  border-radius: 50%;
 }
 
 .pri-button.default {
+  height: 32px;
+  background-color: var(--white-color);
+  font-size: var(--base-font-size);
+}
 
+.pri-button.small {
+  height: 24px;
+  padding: 5px 11px;
+  font-size: var(--small-font-size);
+}
+
+.pri-button.large {
+  height: 40px;
+  padding: 12px 19px;
+  font-size: var(--base-font-size);
+}
+
+.btn-icon {
+  vertical-align: -2px;
+  width: 14px;
+}
+
+.loading {
+  animation: rotating 2s linear infinite;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

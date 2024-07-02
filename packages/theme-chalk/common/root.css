@@ -7,6 +7,7 @@
   --primary-color-5: #91caff;
   --primary-color-6: #bae0ff;
   --primary-color-7: #e6f4ff;
+  --primary-color-8: #ecf5ff;
   --success-color: #67c23a;
   --success-color-2: #529b2e;
   --success-color-3: #95d475;
@@ -40,12 +41,15 @@
   --black-color: #000000;
   /* 字体 */
   --base-font-size: 14px;
+  --small-font-size: 12px;
   --base-font-weight: 400;
   --base-font-color: #606266;
   /* 边框 */
   --base-border-radius: 2px;
   --base-border: 1px solid #dcdfe6;
   --base-border-color: #dcdfe6;
+  --base-border-round: 20px;
+  --active-border-color: var(--primary-color);
 }
 
 :root[theme="dark"] {

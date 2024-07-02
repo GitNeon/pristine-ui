@@ -1,23 +1,24 @@
 <script setup lang="ts">
-import type { ButtonProps } from '@/components/button/src/button.ts';
+import LoadingIcon from '../../../../public/loading.svg';
+import type { ButtonEmit, ButtonProps } from '@/components/button/src/button.ts';
+import { useButton } from '@/components/button/src/use-button.ts';
 
 defineOptions({
   name: 'PriButton',
   inheritAttrs: true,
 });
 
-const props = withDefaults(defineProps<ButtonProps>(), {
-  size: 'default',
-  type: 'default',
-  plain: false,
+const props = defineProps<ButtonProps>();
+const emit = defineEmits<ButtonEmit>();
 
-});
-
-console.log(props);
+const { _class, handleClick } = useButton(props, emit);
 </script>
 
 <template>
-  <button class="pri-button">
+  <button :class="_class" :disabled="disabled" @click="handleClick">
+    <template v-if="loading">
+      <img class="btn-icon loading" :src="LoadingIcon" alt="loading">
+    </template>
     <span v-if="$slots.default">
       <slot />
     </span>

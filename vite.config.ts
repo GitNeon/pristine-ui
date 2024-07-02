@@ -63,7 +63,7 @@ export default defineConfig({
         },
         {
           format: 'es',
-          entryFileNames: '[name].js', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
+          entryFileNames: '[name].mjs', // 入口点文件的命名，这里保持原有文件名，会影响构建后的文件名称，会覆盖lib的命名规则
           exports: 'named',
           preserveModules: true, // 使用原始模块名作为文件名
           preserveModulesRoot: 'packages', // 简单来说打包后保持源码当中的文件夹结构
@@ -84,10 +84,12 @@ export default defineConfig({
     vue(),
     // 打包出ts类型标注
     dts({
+      staticImport: true,
       tsconfigPath: path.resolve(__dirname, 'tsconfig.prod.json'),
       outDir: [
         path.resolve(__dirname, 'build/es'),
         path.resolve(__dirname, 'build/lib'),
+        path.resolve(__dirname, 'build/@types'),
       ],
     }),
   ],
