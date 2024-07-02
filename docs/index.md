@@ -4,22 +4,18 @@ layout: home
 
 hero:
   name: "Pristine UI"
-  text: "A Vue3 UI components library"
-  tagline: My great project tagline
+  text: "A Vue3 UI Components Library"
+  tagline: "🎉 一个模仿Element Plus的个人练习组件库"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 快速开始
+      link: /guide/getting-started
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 轻量化
+    details: 采用原生CSS语法、组件代码小巧精简
+  - title: TS类型
+    details: 采用TypeScript构建，有智能提示
+  - title: 视觉反馈
+    details: 操作简洁直观、清晰的动效帮助用户感知自己的操作
 ---
-
