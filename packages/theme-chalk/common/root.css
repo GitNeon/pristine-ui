@@ -50,14 +50,16 @@
   --base-border-color: #dcdfe6;
   --base-border-round: 20px;
   --active-border-color: var(--primary-color);
+  /* 激活时的颜色 */
+  --active-button-text-color: #ffffff;
 }
 
-:root[theme="dark"] {
+:root[theme='dark'] {
   --bg-color: var(--dark-theme-color);
   --text-color: var(--white-color);
 }
 
-:root[theme="light"] {
+:root[theme='light'] {
   --bg-color: var(--white-color);
   --text-color: var(--black-color);
 }

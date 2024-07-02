@@ -78,6 +78,17 @@ function onButtonClick() {
         大型按钮
       </PriButton>
     </div>
+    <div class="flex-wrapper">
+      <PriButton type="primary" link>
+        链接按钮
+      </PriButton>
+      <PriButton type="success" link>
+        链接按钮-成功
+      </PriButton>
+      <PriButton type="warning" link>
+        链接按钮-警告
+      </PriButton>
+    </div>
   </div>
 </template>
 

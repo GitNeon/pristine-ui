@@ -10,7 +10,8 @@ export function useButton(props: ButtonProps, emit: ButtonEmit) {
     const round = props.round ? 'round' : '';
     const circle = props.circle ? 'circle' : '';
     const size = props.size ? props.size : '';
-    return normalizeSpaces(`pri-button ${type} ${disabled} ${round} ${circle} ${size}`);
+    const link = props.link ? 'link' : '';
+    return normalizeSpaces(`pri-button ${type} ${disabled} ${round} ${circle} ${size} ${link}`);
   });
 
   const handleClick = (event: MouseEvent) => {

@@ -28,6 +28,8 @@
 .pri-button.primary {
   background-color: var(--primary-color-2);
   --base-border: 1px solid var(--primary-color-2);
+  --active-border-color: var(--primary-color);
+  --active-button-text-color: var(--primary-color);
   color: var(--white-color);
 }
 
@@ -35,6 +37,7 @@
   background-color: var(--success-color-2);
   --base-border: 1px solid var(--success-color-2);
   --active-border-color: var(--success-color);
+  --active-button-text-color: var(--success-color);
   color: var(--white-color);
 }
 
@@ -42,6 +45,7 @@
   background-color: var(--info-color-2);
   --base-border: 1px solid var(--info-color-2);
   --active-border-color: var(--info-color);
+  --active-button-text-color: var(--info-color);
   color: var(--white-color);
 }
 
@@ -49,6 +53,7 @@
   background-color: var(--warning-color);
   --base-border: 1px solid var(--warning-color);
   --active-border-color: var(--warning-color);
+  --active-button-text-color: var(--warning-color);
   color: var(--white-color);
 }
 
@@ -56,6 +61,7 @@
   background-color: var(--danger-color-2);
   --base-border: 1px solid var(--danger-color-2);
   --active-border-color: var(--danger-color);
+  --active-button-text-color: var(--danger-color);
   color: var(--white-color);
 }
 
@@ -67,6 +73,15 @@
   width: 32px;
   padding: 8px;
   border-radius: 50%;
+}
+
+.pri-button.link {
+  border-color: transparent;
+  border-bottom: 1px solid;
+  background-color: transparent;
+  height: auto;
+  padding: 2px 0 4px;
+  color: var(--active-button-text-color);
 }
 
 .pri-button.default {
