@@ -12,7 +12,10 @@
     "lint:fix": "eslint . --fix",
     "lint:css": "stylelint '**/*.{css,scss,vue}' --fix",
     "lint:lint-staged": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "@pristine-ui/components": "workspace:*",
@@ -44,6 +47,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.1",
+    "vitepress": "^1.2.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.3",
     "vue-tsc": "^2.0.21"
