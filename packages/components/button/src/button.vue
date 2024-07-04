@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoadingIcon from '../../../../public/loading.svg';
-import type { ButtonEmit, ButtonProps } from '@/components/button/src/button.ts';
-import { useButton } from '@/components/button/src/use-button.ts';
+import type { ButtonEmit, ButtonProps } from './button.ts';
+import { useButton } from './use-button.ts';
 
 defineOptions({
   name: 'PriButton',

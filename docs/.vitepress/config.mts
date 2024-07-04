@@ -45,6 +45,10 @@ export default defineConfig({
     ],
     search: {
       provider: 'local'
+    },
+    footer: {
+      message: 'MIT许可协议',
+      copyright: 'Copyright © 2024 Yunyan 🌲'
     }
   },
 });

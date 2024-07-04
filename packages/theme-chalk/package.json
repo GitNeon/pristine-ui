@@ -1,0 +1,12 @@
+{
+  "name": "@pristine-ui/theme-chalk",
+  "version": "0.0.1",
+  "description": "Pristine ui chalk theme",
+  "author": "Yun yan",
+  "license": "MIT",
+  "keywords": [
+    "theme-chalk"
+  ],
+  "main": "index.css",
+  "style": "index.css"
+}

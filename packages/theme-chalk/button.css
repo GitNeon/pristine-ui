@@ -104,6 +104,7 @@
 
 .btn-icon {
   vertical-align: -2px;
+  display: inline-block;
   width: 14px;
 }
 

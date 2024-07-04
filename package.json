@@ -21,6 +21,7 @@
     "@pristine-ui/components": "workspace:*",
     "@pristine-ui/constants": "workspace:*",
     "@pristine-ui/hooks": "workspace:^",
+    "@pristine-ui/theme-chalk": "workspace:^",
     "@pristine-ui/utils": "workspace:^",
     "@vue/runtime-core": "^3.4.29"
   },

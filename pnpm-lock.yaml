@@ -27,6 +27,9 @@ importers:
       '@antfu/eslint-config':
         specifier: ^2.21.1
         version: 2.21.1(@vue/compiler-sfc@3.4.27)(eslint-plugin-format@0.1.1)(eslint@8.57.0)(typescript@5.4.5)
+      '@pristine-ui/theme-chalk':
+        specifier: workspace:^
+        version: link:packages/theme-chalk
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
@@ -112,6 +115,8 @@ importers:
   packages/constants: {}
 
   packages/hooks: {}
+
+  packages/theme-chalk: {}
 
   packages/utils: {}
 

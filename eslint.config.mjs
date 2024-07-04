@@ -11,6 +11,7 @@ export default antfu(
   {
     rules: {
       'no-console': ['off'],
+      'vue/singleline-html-element-content-newline': ['off']
     },
   },
 );

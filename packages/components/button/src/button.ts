@@ -1,4 +1,4 @@
-export type ButtonSize = 'default' | 'large' | 'small';
+export type ButtonSize = 'normal' | 'large' | 'small';
 export type ButtonType = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
 export type NativeButtonType = 'button' | 'submit' | 'reset';
 
