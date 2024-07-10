@@ -1,0 +1,23 @@
+.popover, .reference-wrapper {
+  display: inline-block;
+}
+
+.popover-content {
+  position: absolute;
+  display: inline-block;
+  min-width: 200px;
+  line-height: 1.4;
+  box-shadow: var(--box-shadow-light);
+  background-color: var(--white-color);
+  border: 1px solid var(--base-border-color-light);
+  padding: 12px;
+  border-radius: 4px;
+}
+
+/*.popover-content::after {
+  position: absolute;
+  content: "";
+  background-color: red;
+  width: 8px;
+  height: 8px;
+}*/

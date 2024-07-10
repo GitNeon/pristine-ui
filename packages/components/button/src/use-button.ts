@@ -9,7 +9,7 @@ export function useButton(props: ButtonProps, emit: ButtonEmit) {
     const disabled = (props.disabled || props.loading) ? 'disabled' : '';
     const round = props.round ? 'round' : '';
     const circle = props.circle ? 'circle' : '';
-    const size = props.size === 'normal' ? '' : props.size;
+    const size = props.size ? 'normal' : '';
     const link = props.link ? 'link' : '';
     return normalizeSpaces(`pri-button ${type} ${disabled} ${round} ${circle} ${size} ${link}`);
   });

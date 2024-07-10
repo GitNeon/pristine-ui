@@ -1,1 +1,1 @@
-import '@pristine-ui/the';
+import '@pristine-ui/theme-chalk/common/root.css';

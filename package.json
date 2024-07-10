@@ -23,7 +23,8 @@
     "@pristine-ui/hooks": "workspace:^",
     "@pristine-ui/theme-chalk": "workspace:^",
     "@pristine-ui/utils": "workspace:^",
-    "@vue/runtime-core": "^3.4.29"
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
@@ -49,8 +50,6 @@
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.1",
     "vitepress": "^1.2.3",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.3",
     "vue-tsc": "^2.0.21"
   },
   "lint-staged": {

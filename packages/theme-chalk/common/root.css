@@ -1,3 +1,5 @@
+@import "./transition.css";
+
 :root {
   /* 主色调 */
   --primary-color: #0958d9;
@@ -48,10 +50,14 @@
   --base-border-radius: 2px;
   --base-border: 1px solid #dcdfe6;
   --base-border-color: #dcdfe6;
+  --base-border-color-light: #e4e7ed;
   --base-border-round: 20px;
   --active-border-color: var(--primary-color);
   /* 激活时的颜色 */
   --active-button-text-color: #ffffff;
+  /* 阴影 */
+  --box-shadow-light: 0px 0px 12px rgba(0, 0, 0, .12);
+  --box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, .12);
 }
 
 :root[theme='dark'] {
