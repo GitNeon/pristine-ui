@@ -20,6 +20,9 @@ const popoverReference = ref<HTMLElement>();
 
 const visible = ref<boolean>(props.visible);
 
+const isPopoverReference = (evt: MouseEvent) => popoverReference?.value?.contains(evt.target as Node);
+const isPopoverContent = (evt: MouseEvent) => popoverContent?.value?.contains(evt.target as Node);
+
 function setPopoverPosition() {
   const popoverContentDom = popoverContent.value!;
   const popoverReferenceDom = popoverReference.value!;
@@ -87,24 +90,39 @@ function setPopoverPosition() {
   document.body.appendChild(popoverContentDom);
 }
 
+// 处理整个文档区域的点击事件
+// 点击弹窗以外的地方也能关闭popover
+function handleDocumentClick(evt: MouseEvent) {
+  // 这里需要判断下target是否在所包裹的元素上和弹出层元素上触发的
+  if (isPopoverReference(evt) || isPopoverContent(evt)) {
+    return;
+  }
+  closePopover();
+}
+
 function showPopover() {
-  console.log('showPopover');
   visible.value = true;
   // 确保显示DOM后拿到最新的DOM结构
   nextTick(() => {
     setPopoverPosition();
+    document.addEventListener('click', handleDocumentClick);
   });
 }
 
 function closePopover() {
-  console.log('closePopover');
   visible.value = false;
+  document.removeEventListener('click', handleDocumentClick);
 }
 
 function handleClick(evt: MouseEvent) {
   console.log(evt.target);
-  if (popoverReference?.value?.contains(evt.target as Node)) {
-    visible.value ? closePopover() : showPopover();
+  if (isPopoverReference(evt)) {
+    if (visible.value) {
+      closePopover();
+    }
+    else {
+      showPopover();
+    }
   }
 }
 
