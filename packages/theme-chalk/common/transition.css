@@ -1,11 +1,10 @@
+/* 淡入淡出 */
 .fade-enter-active {
   animation: fade 0.2s ease-in-out;
 }
-
 .fade-leave-active {
   animation: fade 0.2s ease-in-out reverse;
 }
-
 @keyframes fade {
   0% {
     opacity: 0;
@@ -13,5 +12,68 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+/* Y轴缩放 */
+.scaleY-enter-active {
+  transform-origin: center top;
+  animation: scaleY 0.2s cubic-bezier(.23, 1, .32, 1);
+}
+.scaleY-leave-active {
+  transform-origin: center top;
+  animation: scaleY 0.2s cubic-bezier(.23, 1, .32, 1) reverse;
+}
+@keyframes scaleY {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(100%);
+  }
+}
+
+/* 左上角缩放 */
+.scale-left-top-enter-active {
+  transform-origin: left top;
+  animation: scaleLeftTop 0.4s cubic-bezier(.23, 1, .32, 1);
+}
+.scale-left-top-leave-active {
+  transform-origin: left top;
+  animation: scaleLeftTop 0.4s cubic-bezier(.23, 1, .32, 1) reverse;
+}
+@keyframes scaleLeftTop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+/* X轴平移 */
+.translateX-enter-active {
+  animation: translateX 0.2s linear;
+}
+
+.translateX-leave-active {
+  animation: translateX 0.2s linear reverse;
+}
+
+@keyframes translateX {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

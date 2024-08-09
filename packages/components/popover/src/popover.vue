@@ -123,7 +123,7 @@ onUnmounted(() => {
 
 <template>
   <div ref="popover" class="popover">
-    <Transition name="fade">
+    <Transition name="scaleY">
       <div v-if="visible" ref="popoverContent" class="popover-content">
         <slot name="content" />
       </div>
