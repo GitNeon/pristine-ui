@@ -3,8 +3,6 @@ import DefaultTheme from 'vitepress/theme';
 import './custom.css';
 import '@pristine-ui/theme-chalk/common/root.css';
 
-// import BasicButton from '../../examples/button/basic-button.vue';
-
 function toPascalCase(str) {
   if (!str)
     return '';
@@ -19,7 +17,6 @@ export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     const modules = import.meta.glob('../../examples/**/*.vue');
-    console.log(modules);
     for (const [path, value] of Object.entries(modules)) {
       const fileName = path.split('/').pop().replace(/\.vue$/, '');
       const componentName = toPascalCase(fileName);

@@ -1,6 +1,5 @@
-export type AnimationType = 'fade' | 'zoom';
-export type TriggerType = 'click' | 'focus' | 'hover';
-export type PositionType = 'top' | 'bottom' | 'left' | 'right';
+export type AnimationType = 'fade' | 'scale' | 'translate';
+export type HandleType = 'add' | 'remove';
 
 export interface PopoverProps {
   /**
@@ -24,3 +23,31 @@ export interface PopoverProps {
    */
   offset?: number;
 }
+
+export interface EventHandlers {
+  click: () => void;
+  hover: () => void;
+}
+
+export type TriggerType = keyof EventHandlers;
+
+export interface PositionMap {
+  top: {
+    x: number;
+    y: number;
+  };
+  bottom: {
+    x: number;
+    y: number;
+  };
+  left: {
+    x: number;
+    y: number;
+  };
+  right: {
+    x: number;
+    y: number;
+  };
+}
+
+export type PositionType = keyof PositionMap;

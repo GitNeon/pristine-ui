@@ -1,9 +1,14 @@
-/* 淡入淡出 */
-.fade-enter-active {
-  animation: fade 0.2s ease-in-out;
+:root {
+  --pri-animation-duration: 0.25s;
+  --pri-time-function: cubic-bezier(.23, 1, .32, 1);
 }
-.fade-leave-active {
-  animation: fade 0.2s ease-in-out reverse;
+
+/* 淡入淡出 */
+.fade-enter {
+  animation: fade var(--pri-animation-duration) ease-in-out;
+}
+.fade-leave {
+  animation: fade var(--pri-animation-duration) ease-in-out reverse;
 }
 @keyframes fade {
   0% {
@@ -15,16 +20,44 @@
   }
 }
 
-/* Y轴缩放 */
-.scaleY-enter-active {
-  transform-origin: center top;
-  animation: scaleY 0.2s cubic-bezier(.23, 1, .32, 1);
+/* 缩放 */
+.scale-enter {
+  animation-duration: var(--pri-animation-duration);
+  animation-timing-function: var(--pri-time-function);
 }
-.scaleY-leave-active {
-  transform-origin: center top;
-  animation: scaleY 0.2s cubic-bezier(.23, 1, .32, 1) reverse;
+.scale-leave {
+  animation-duration: var(--pri-animation-duration);
+  animation-timing-function: var(--pri-time-function);
+  animation-direction: reverse;
 }
-@keyframes scaleY {
+.scale-top {
+  transform-origin: center bottom;
+  animation-name: scale-frame-y;
+}
+.scale-bottom {
+  transform-origin: center top;
+  animation-name: scale-frame-y;
+}
+.scale-left {
+  transform-origin: right center;
+  animation-name: scale-frame-x;
+}
+.scale-right {
+  transform-origin: left center;
+  animation-name: scale-frame-x;
+}
+@keyframes scale-frame-x {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleX(100%);
+  }
+}
+@keyframes scale-frame-y {
   0% {
     opacity: 0;
     transform: scaleY(0);
@@ -36,37 +69,33 @@
   }
 }
 
-/* 左上角缩放 */
-.scale-left-top-enter-active {
-  transform-origin: left top;
-  animation: scaleLeftTop 0.4s cubic-bezier(.23, 1, .32, 1);
-}
-.scale-left-top-leave-active {
-  transform-origin: left top;
-  animation: scaleLeftTop 0.4s cubic-bezier(.23, 1, .32, 1) reverse;
-}
-@keyframes scaleLeftTop {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-
-  100% {
-    opacity: 1;
-    transform: scale(100%);
-  }
-}
-
 /* X轴平移 */
-.translateX-enter-active {
-  animation: translateX 0.2s linear;
+.translate-enter {
+  animation-duration: var(--pri-animation-duration);
+  animation-timing-function: var(--pri-time-function);
 }
-
-.translateX-leave-active {
-  animation: translateX 0.2s linear reverse;
+.translate-leave {
+  animation-duration: var(--pri-animation-duration);
+  animation-timing-function: var(--pri-time-function);
+  animation-direction: reverse;
 }
-
-@keyframes translateX {
+.translate-top {
+  transform-origin: center bottom;
+  animation-name: translate-frame-y-2;
+}
+.translate-bottom {
+  transform-origin: center top;
+  animation-name: translate-frame-y;
+}
+.translate-left {
+  transform-origin: right center;
+  animation-name: translate-frame-x-2;
+}
+.translate-right {
+  transform-origin: left center;
+  animation-name: translate-frame-x;
+}
+@keyframes translate-frame-x {
   0% {
     opacity: 0;
     transform: translateX(-10%);
@@ -75,5 +104,38 @@
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+@keyframes translate-frame-x-2 {
+  0% {
+    opacity: 0;
+    transform: translateX(10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes translate-frame-y {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes translate-frame-y-2 {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

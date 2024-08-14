@@ -45,11 +45,11 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
     ],
     search: {
-      provider: 'local'
+      provider: 'local',
     },
     footer: {
       message: 'MIT许可协议',
-      copyright: 'Copyright © 2024 Yunyan 🌲'
-    }
+      copyright: 'Copyright © 2024 Yunyan 🌲',
+    },
   },
 });

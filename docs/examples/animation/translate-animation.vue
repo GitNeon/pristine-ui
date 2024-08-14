@@ -12,14 +12,14 @@ function isVisible() {
   <PriButton @click="isVisible">translate平移</PriButton>
   <hr>
   <div class="flex-container">
-    <Transition name="translateX">
+    <Transition enter-active-class="translate-enter translate-bottom" leave-active-class="translate-leave translate-bottom">
       <div v-if="fadeVisible" class="item">
-        <span>fade-1</span>
+        <span>translate-enter translate-bottom</span>
       </div>
     </Transition>
-    <Transition name="translateX">
+    <Transition enter-active-class="translate-enter translate-top" leave-active-class="translate-leave translate-top">
       <div v-if="fadeVisible" class="item">
-        <span>fade-2</span>
+        <span>translate-enter translate-bottom</span>
       </div>
     </Transition>
   </div>

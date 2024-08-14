@@ -1,6 +1,14 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
-import type { PopoverProps } from './popover.ts';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { getZIndex } from '../../../utils';
+import type {
+  AnimationType,
+  EventHandlers,
+  HandleType,
+  PopoverProps,
+  PositionMap,
+  PositionType,
+} from './popover.ts';
 
 defineOptions({
   name: 'PriPopover',
@@ -17,27 +25,32 @@ const props = withDefaults(defineProps<PopoverProps>(), {
 const popover = ref<HTMLElement>();
 const popoverContent = ref<HTMLElement>();
 const popoverReference = ref<HTMLElement>();
+const zIndex = ref<number>(getZIndex());
 
 const visible = ref<boolean>(props.visible);
 
-const isPopoverReference = (evt: MouseEvent) => popoverReference?.value?.contains(evt.target as Node);
-const isPopoverContent = (evt: MouseEvent) => popoverContent?.value?.contains(evt.target as Node);
+function isPopoverReference(evt: MouseEvent) {
+  return popoverReference?.value?.contains(evt.target as Node);
+}
 
-function setPopoverPosition() {
-  const popoverContentDom = popoverContent.value!;
-  const popoverReferenceDom = popoverReference.value!;
+function isPopoverContent(evt: MouseEvent) {
+  return popoverContent?.value?.contains(evt.target as Node);
+}
 
-  const { innerWidth, innerHeight, scrollX, scrollY } = window;
-  const { clientWidth, clientHeight } = document.documentElement;
-  const viewportWidth = innerWidth || clientWidth;
-  const viewportHeight = innerHeight || clientHeight;
+const popperId = () => `pri-popover-${zIndex.value}`;
 
-  const { position, offset } = props;
+function calculatePosition(
+  position: PositionType = 'bottom',
+  offset: number = 10,
+) {
+  const contentDom = popoverContent.value!;
+  const referenceDom = popoverReference.value!;
 
-  const { width, height, top, left, right, bottom } = popoverReferenceDom.getBoundingClientRect();
-  const { height: contentHeight, width: contentWidth } = popoverContentDom.getBoundingClientRect();
+  const { width, height, top, left } = referenceDom.getBoundingClientRect();
+  const { height: contentHeight, width: contentWidth }
+    = contentDom.getBoundingClientRect();
 
-  const positionMap = {
+  const positionMap: PositionMap = {
     top: {
       x: left + scrollX,
       y: top + scrollY - contentHeight - offset,
@@ -56,6 +69,24 @@ function setPopoverPosition() {
     },
   };
 
+  return positionMap[position];
+}
+
+function getPopoverPosition() {
+  const contentDom = popoverContent.value!;
+  const referenceDom = popoverReference.value!;
+
+  const { innerWidth, innerHeight } = window;
+  const { clientWidth, clientHeight } = document.documentElement;
+  const viewportWidth = innerWidth || clientWidth;
+  const viewportHeight = innerHeight || clientHeight;
+
+  const { top, left, right, bottom } = referenceDom.getBoundingClientRect();
+  const { height: contentHeight, width: contentWidth }
+    = contentDom.getBoundingClientRect();
+
+  const { position, offset } = props;
+
   /**
    * 检查是否溢出并调整位置
    *
@@ -65,48 +96,87 @@ function setPopoverPosition() {
    */
   let final_left = 0;
   let final_top = 0;
-  if (position === 'top') {
-    final_left = positionMap.top.x;
-    final_top = contentHeight > top ? positionMap.bottom.y : positionMap.top.y;
-  }
-  if (position === 'right') {
-    const realRightDistance = viewportWidth - right;
-    final_left = contentWidth > realRightDistance ? positionMap.left.x : positionMap.right.x;
-    final_top = positionMap.right.y;
-  }
-  if (position === 'bottom') {
-    const realBottomDistance = viewportHeight - bottom;
-    final_left = positionMap.bottom.x;
-    final_top = contentHeight > realBottomDistance ? positionMap.top.y : positionMap.bottom.y;
-  }
-  if (position === 'left') {
-    final_left = contentWidth > left ? positionMap.right.x : positionMap.left.x;
-    final_top = positionMap.left.y;
+  switch (position) {
+    case 'top': {
+      const { x: top_x, y: top_y } = calculatePosition('top', offset);
+      const { y: bottom_y } = calculatePosition('bottom', offset);
+      final_left = top_x;
+      final_top = contentHeight > top ? bottom_y : top_y;
+      break;
+    }
+    case 'right': {
+      const { x: left_x } = calculatePosition('left', offset);
+      const { x: right_x, y: right_y } = calculatePosition('right', offset);
+      const realRightDistance = viewportWidth - right;
+      final_left = contentWidth > realRightDistance ? left_x : right_x;
+      final_top = right_y;
+      break;
+    }
+    case 'bottom': {
+      const { x: bottom_x, y: bottom_y } = calculatePosition('bottom', offset);
+      const { y: top_y } = calculatePosition('top', offset);
+      const realBottomDistance = viewportHeight - bottom;
+      final_left = bottom_x;
+      final_top = contentHeight > realBottomDistance ? top_y : bottom_y;
+      break;
+    }
+    case 'left': {
+      const { x: left_x, y: left_y } = calculatePosition('left', offset);
+      const { x: right_x } = calculatePosition('right', offset);
+      final_left = contentWidth > left ? right_x : left_x;
+      final_top = left_y;
+      break;
+    }
+    default:
+      break;
   }
 
-  popoverContentDom.style.left = `${final_left}px`;
-  popoverContentDom.style.top = `${final_top}px`;
-
-  document.body.appendChild(popoverContentDom);
+  return {
+    final_left,
+    final_top,
+  };
 }
 
-// 处理整个文档区域的点击事件
-// 点击弹窗以外的地方也能关闭popover
-function handleDocumentClick(evt: MouseEvent) {
+function setPopoverStyle() {
+  const contentDom = popoverContent.value!;
+
+  // 计算DOM宽高使用，一种hack的解决方法
+  contentDom.style.position = 'fixed';
+  contentDom.style.display = 'block';
+  contentDom.style.visibility = 'hidden';
+
+  const { final_left, final_top } = getPopoverPosition();
+
+  contentDom.style.left = `${final_left}px`;
+  contentDom.style.top = `${final_top}px`;
+  contentDom.style.position = `absolute`;
+  contentDom.style.display = 'none';
+  contentDom.style.visibility = 'visible';
+  contentDom.style.zIndex = zIndex.value.toString();
+}
+
+/**
+ * 处理整个文档区域的点击事件
+ * 点击弹窗以外的地方也能关闭popover
+ * @param {Event} event
+ */
+function handleDocumentClick(event: MouseEvent) {
   // 这里需要判断下target是否在所包裹的元素上和弹出层元素上触发的
-  if (isPopoverReference(evt) || isPopoverContent(evt)) {
+  if (isPopoverReference(event) || isPopoverContent(event)) {
     return;
   }
   closePopover();
 }
 
 function showPopover() {
+  if (!document.getElementById(popperId())) {
+    const contentDom = popoverContent.value!;
+    contentDom.setAttribute('id', popperId());
+    document.body.appendChild(contentDom);
+  }
+  setPopoverStyle();
+  document.addEventListener('click', handleDocumentClick);
   visible.value = true;
-  // 确保显示DOM后拿到最新的DOM结构
-  nextTick(() => {
-    setPopoverPosition();
-    document.addEventListener('click', handleDocumentClick);
-  });
 }
 
 function closePopover() {
@@ -115,34 +185,100 @@ function closePopover() {
 }
 
 function handleClick(evt: MouseEvent) {
-  console.log(evt.target);
   if (isPopoverReference(evt)) {
-    if (visible.value) {
-      closePopover();
-    }
-    else {
-      showPopover();
-    }
+    visible.value ? closePopover() : showPopover();
   }
 }
 
-onMounted(() => {
-  if (props.trigger === 'click') {
-    popover.value?.addEventListener('click', handleClick);
+function handlePopoverEvent<K extends keyof EventHandlers>(
+  eventType: K,
+  handleType: HandleType,
+) {
+  const EVENT_MAP: EventHandlers = {
+    click() {
+      handleType === 'add'
+        ? popover.value?.addEventListener('click', handleClick)
+        : popover.value?.removeEventListener('click', handleClick);
+    },
+    hover() {
+      if (handleType === 'add') {
+        popover.value?.addEventListener('mouseenter', showPopover);
+        popover.value?.addEventListener('mouseleave', closePopover);
+      }
+      else {
+        popover.value?.removeEventListener('mouseenter', showPopover);
+        popover.value?.removeEventListener('mouseleave', closePopover);
+      }
+    },
+  };
+  const handleMethod = EVENT_MAP[eventType];
+  handleMethod && handleMethod();
+}
+
+function removePopperDom() {
+  const el = document.getElementById(popperId());
+  if (el) {
+    document.body.removeChild(el);
+  }
+}
+
+function resizePopperPosition() {
+  if (visible.value) {
+    const contentDom = popoverContent.value!;
+    const { final_left, final_top } = getPopoverPosition();
+    contentDom.style.left = `${final_left}px`;
+    contentDom.style.top = `${final_top}px`;
+  }
+}
+
+const scaleClass = computed(() => {
+  const position = props.position;
+  const animationName: AnimationType = props.animationName;
+
+  switch (animationName) {
+    case 'fade': {
+      return {
+        enter: `fade-enter`,
+        leave: `fade-leave`,
+      };
+    }
+    case 'scale':
+    case 'translate': {
+      return {
+        enter: `${animationName}-enter ${animationName}-${position}`,
+        leave: `${animationName}-leave ${animationName}-${position}`,
+      };
+    }
+    default: {
+      return {
+        enter: `fade-enter`,
+        leave: `fade-leave`,
+      };
+    }
   }
 });
 
+onMounted(() => {
+  handlePopoverEvent(props.trigger, 'add');
+  window.addEventListener('resize', resizePopperPosition);
+  window.addEventListener('scroll', resizePopperPosition);
+});
+
 onUnmounted(() => {
-  if (props.trigger === 'click') {
-    popover.value?.removeEventListener('click', showPopover);
-  }
+  handlePopoverEvent(props.trigger, 'remove');
+  removePopperDom();
+  window.removeEventListener('resize', resizePopperPosition);
+  window.removeEventListener('scroll', resizePopperPosition);
 });
 </script>
 
 <template>
   <div ref="popover" class="popover">
-    <Transition name="scaleY">
-      <div v-if="visible" ref="popoverContent" class="popover-content">
+    <Transition
+      :enter-active-class="scaleClass.enter"
+      :leave-active-class="scaleClass.leave"
+    >
+      <div v-show="visible" ref="popoverContent" class="popover-content">
         <slot name="content" />
       </div>
     </Transition>
@@ -153,6 +289,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-@import "../../../theme-chalk/common/transition.css";
-@import "../../../theme-chalk/popover.css";
+@import '../../../theme-chalk/common/transition.css';
+@import '../../../theme-chalk/popover.css';
 </style>

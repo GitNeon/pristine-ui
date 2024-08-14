@@ -12,12 +12,12 @@ function isVisible() {
   <PriButton @click="isVisible">fade淡入淡出</PriButton>
   <hr>
   <div class="flex-container">
-    <Transition name="fade">
+    <Transition enter-active-class="fade-enter" leave-active-class="fade-leave">
       <div v-if="fadeVisible" class="item">
         <span>fade-1</span>
       </div>
     </Transition>
-    <Transition name="fade">
+    <Transition enter-active-class="fade-enter" leave-active-class="fade-leave">
       <div v-if="fadeVisible" class="item">
         <span>fade-2</span>
       </div>

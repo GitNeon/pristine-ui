@@ -6,6 +6,7 @@
   position: absolute;
   display: inline-block;
   min-width: 200px;
+  min-height: 100px;
   line-height: 1.4;
   box-shadow: var(--box-shadow-light);
   background-color: var(--white-color);

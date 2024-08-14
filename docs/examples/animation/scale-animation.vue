@@ -13,14 +13,14 @@ function isScaleVisible() {
   <PriButton @click="isScaleVisible">scale缩放</PriButton>
   <hr>
   <div class="flex-container">
-    <Transition name="scaleY">
+    <Transition enter-active-class="scale-enter scale-bottom" leave-active-class="scale-leave scale-bottom">
       <div v-if="scaleVisible" class="item">
-        <span>scaleY-1</span>
+        <span>class=scale-enter scale-bottom</span>
       </div>
     </Transition>
-    <Transition name="scaleY">
+    <Transition enter-active-class="scale-enter scale-top" leave-active-class="scale-leave scale-top">
       <div v-if="scaleVisible" class="item">
-        <span>scaleY-2</span>
+        <span>class=scale-enter scale-top</span>
       </div>
     </Transition>
   </div>
