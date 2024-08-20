@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { getZIndex } from '../../../utils';
+import { debounce, getZIndex } from '../../../utils/index.ts';
 import type {
   AnimationType,
   EventHandlers,
@@ -20,13 +20,14 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   trigger: 'hover',
   position: 'top',
   offset: 10,
+  popoverClass: '',
+  popoverStyle: undefined,
 });
 
 const popover = ref<HTMLElement>();
 const popoverContent = ref<HTMLElement>();
 const popoverReference = ref<HTMLElement>();
 const zIndex = ref<number>(getZIndex());
-
 const visible = ref<boolean>(props.visible);
 
 function isPopoverReference(evt: MouseEvent) {
@@ -40,7 +41,7 @@ function isPopoverContent(evt: MouseEvent) {
 const popperId = () => `pri-popover-${zIndex.value}`;
 
 function calculatePosition(
-  position: PositionType = 'bottom',
+  position: PositionType,
   offset: number = 10,
 ) {
   const contentDom = popoverContent.value!;
@@ -155,12 +156,7 @@ function setPopoverStyle() {
   contentDom.style.zIndex = zIndex.value.toString();
 }
 
-/**
- * 处理整个文档区域的点击事件
- * 点击弹窗以外的地方也能关闭popover
- * @param {Event} event
- */
-function handleDocumentClick(event: MouseEvent) {
+function closePopoverOnOutSide(event: MouseEvent) {
   // 这里需要判断下target是否在所包裹的元素上和弹出层元素上触发的
   if (isPopoverReference(event) || isPopoverContent(event)) {
     return;
@@ -168,20 +164,27 @@ function handleDocumentClick(event: MouseEvent) {
   closePopover();
 }
 
-function showPopover() {
-  if (!document.getElementById(popperId())) {
-    const contentDom = popoverContent.value!;
-    contentDom.setAttribute('id', popperId());
-    document.body.appendChild(contentDom);
+function creatContentDom() {
+  const domId = popperId();
+  if (document.getElementById(domId)) {
+    return;
   }
+  const contentDom = popoverContent.value!;
+  contentDom.setAttribute('id', domId);
+  document.body.appendChild(contentDom);
+}
+
+function showPopover() {
+  if (visible.value) {
+    return;
+  }
+  creatContentDom();
   setPopoverStyle();
-  document.addEventListener('click', handleDocumentClick);
   visible.value = true;
 }
 
 function closePopover() {
   visible.value = false;
-  document.removeEventListener('click', handleDocumentClick);
 }
 
 function handleClick(evt: MouseEvent) {
@@ -190,24 +193,30 @@ function handleClick(evt: MouseEvent) {
   }
 }
 
+const debounceClosePopover = debounce(closePopoverOnOutSide, 200);
 function handlePopoverEvent<K extends keyof EventHandlers>(
   eventType: K,
   handleType: HandleType,
 ) {
   const EVENT_MAP: EventHandlers = {
     click() {
-      handleType === 'add'
-        ? popover.value?.addEventListener('click', handleClick)
-        : popover.value?.removeEventListener('click', handleClick);
+      if (handleType === 'add') {
+        popover.value?.addEventListener('click', handleClick);
+        document.addEventListener('click', closePopoverOnOutSide);
+      }
+      else {
+        popover.value?.removeEventListener('click', handleClick);
+        document.removeEventListener('click', closePopoverOnOutSide);
+      }
     },
     hover() {
       if (handleType === 'add') {
         popover.value?.addEventListener('mouseenter', showPopover);
-        popover.value?.addEventListener('mouseleave', closePopover);
+        document.addEventListener('mousemove', debounceClosePopover);
       }
       else {
         popover.value?.removeEventListener('mouseenter', showPopover);
-        popover.value?.removeEventListener('mouseleave', closePopover);
+        document.removeEventListener('mousemove', debounceClosePopover);
       }
     },
   };
@@ -217,9 +226,7 @@ function handlePopoverEvent<K extends keyof EventHandlers>(
 
 function removePopperDom() {
   const el = document.getElementById(popperId());
-  if (el) {
-    document.body.removeChild(el);
-  }
+  el && document.body.removeChild(el);
 }
 
 function resizePopperPosition() {
@@ -278,7 +285,7 @@ onUnmounted(() => {
       :enter-active-class="scaleClass.enter"
       :leave-active-class="scaleClass.leave"
     >
-      <div v-show="visible" ref="popoverContent" class="popover-content">
+      <div v-show="visible" ref="popoverContent" class="popover-content" :class="[props.popoverClass]" :style="props.popoverStyle">
         <slot name="content" />
       </div>
     </Transition>

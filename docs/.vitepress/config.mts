@@ -9,8 +9,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/icon/logo.svg',
     nav: [
-      { text: '指南', link: '/guide/getting-started' },
-      { text: '组件', link: '/components/button' },
+      { text: '指南', link: '/guide/getting-started', activeMatch: '/guide/' },
+      { text: '组件', link: '/components/button', activeMatch: '/components/' },
     ],
     sidebar: {
       '/guide/': [
@@ -25,12 +25,11 @@ export default defineConfig({
           ],
         },
       ],
-      '/components': [
+      '/components/': [
         {
           text: '基础组件',
           items: [
             { text: 'Button 按钮', link: '/components/button' },
-            { text: 'Border 边框', link: '/components/border' },
           ],
         },
         {

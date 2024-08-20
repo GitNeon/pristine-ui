@@ -101,3 +101,29 @@
 <PriPopover trigger="hover" position="top" animation-name="fade"> ...</PriPopover>
 ```
 :::
+
+## API
+
+### 属性
+
+| 属性名           | 说明                               | 类型      |
+|:--------------|----------------------------------|---------|
+| visible       | 是否可见                             | boolean |
+| animationName | 动画名称，支持三种动画，fade、scale、translate | string  |
+| trigger       | 触发方式，hover-悬浮、click点击触发          | string  |
+| position      | 指定触发位置,默认top                     | string  |
+| offset        | 弹出层的偏移量                          | boolean |
+| popoverClass  | 为popover添加自定义类名                  | boolean |
+| popoverStyle  | 为popover添加自定义样式                  | boolean |
+
+<style>
+table th:first-of-type {
+    width: 20vw;
+}
+table th:nth-of-type(2) {
+    width: 55vw;
+}
+table th:nth-of-type(3) {
+    width: 25vw;
+}
+</style>

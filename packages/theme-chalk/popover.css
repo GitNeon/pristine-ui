@@ -15,10 +15,10 @@
   border-radius: 2px;
 }
 
-/*.popover-content::after {
+.popover-content::after {
   position: absolute;
   content: "";
-  background-color: red;
+  background-color: var(--white-color);
   width: 8px;
   height: 8px;
-}*/
+}

@@ -22,6 +22,14 @@ export interface PopoverProps {
    * @description 相对于显示位置的偏移量
    */
   offset?: number;
+  /**
+   * @description 为popover弹出层添加自定义类名
+   */
+  popoverClass?: string;
+  /**
+   * @description 为 popper 自定义样式
+   */
+  popoverStyle?: Record<string, string | number>;
 }
 
 export interface EventHandlers {
