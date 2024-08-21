@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue';
-import { debounce, getZIndex } from '../../../utils/index.ts';
+import { debounce, getZIndex } from '@pristine-ui/utils';
 import type {
   AnimationType,
   EventHandlers,
