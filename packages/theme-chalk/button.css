@@ -4,6 +4,7 @@
   line-height: 1;
   cursor: pointer;
   padding: 8px 15px;
+  user-select: none;
   box-sizing: border-box;
   white-space: nowrap;
   color: var(--base-font-color);
@@ -106,6 +107,7 @@
   vertical-align: -2px;
   display: inline-block;
   width: 14px;
+  margin-right: 5px;
 }
 
 .loading {

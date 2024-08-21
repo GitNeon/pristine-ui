@@ -296,6 +296,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-@import '../../../theme-chalk/common/transition.css';
+@import '../../../theme-chalk/common/animation.css';
 @import '../../../theme-chalk/popover.css';
 </style>

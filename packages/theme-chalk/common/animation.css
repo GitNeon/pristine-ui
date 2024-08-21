@@ -69,7 +69,7 @@
   }
 }
 
-/* X轴平移 */
+/* 平移 */
 .translate-enter {
   animation-duration: var(--pri-animation-duration);
   animation-timing-function: var(--pri-time-function);
@@ -137,5 +137,23 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* 水波涟漪逐渐放大并慢慢消失 */
+.ripple-effect {
+  position: absolute;
+  background-color: #ededed;
+  opacity: 0.5;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-scale 0.5s ease-out;
+}
+@keyframes ripple-scale {
+  to {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
   }
 }

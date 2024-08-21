@@ -12,12 +12,16 @@
 >
 > 源码及目录结构参考 Element Plus源码
 
-## 二、工程化配置项
-包含如下:
-- editorconfig：为编辑器设定统一开发风格
-- gitattributes: git版本控制系统配置，指定git工作的一些策略，如文件识别、代码合并、指定差异算法等
-- eslint: 采用@antfu/eslint-config的最佳预设配置，剔除固执的Prettier代码格式化
-- tsconfig：ts编译的选项配置
-- vite.config.js vite的打包工具配置
-- package.json 该项目的配置
-- pnpm-workspace pnpm工作空间配置，适用于monorepo项目结构
+
+## 二、Git提交规范
+🎉 add: 添加新的文件/页面/组件
+🎨 update: 更新页面/组件 UI 样式
+🔥 replace: 替换文案/修正错别字
+🔨 bug: 修复 bug
+🚀 refactor: 重构/优化代码
+🚑 revert: 撤销代码
+♻️ clean: 清理多余的文件/代码
+💩 bad: 修改别人编写的代码
+🔀 merge: 代码合并
+🚸 api: 对接后端接口/模拟接口
+🚧 working: 该文件正在维护中，请勿修改

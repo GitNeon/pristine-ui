@@ -45,6 +45,11 @@ export interface ButtonProps {
   nativeType?: NativeButtonType;
 }
 
+export interface RippleStyle {
+  left: string;
+  top: string;
+}
+
 export interface ButtonEmit {
   (e: 'click', event: MouseEvent): void;
 }

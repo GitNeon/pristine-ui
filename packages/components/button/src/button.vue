@@ -11,11 +11,11 @@ defineOptions({
 const props = defineProps<ButtonProps>();
 const emit = defineEmits<ButtonEmit>();
 
-const { _class, handleClick } = useButton(props, emit);
+const { _class, ref_btn, handleClick } = useButton(props, emit);
 </script>
 
 <template>
-  <button :class="_class" :disabled="disabled" @click="handleClick">
+  <button ref="ref_btn" :class="_class" :disabled="disabled" @click="handleClick">
     <template v-if="loading">
       <img class="btn-icon loading" :src="LoadingIcon" alt="loading">
     </template>
