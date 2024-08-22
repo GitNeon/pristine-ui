@@ -297,5 +297,5 @@ onUnmounted(() => {
 
 <style scoped>
 @import '../../../theme-chalk/common/animation.css';
-@import '../../../theme-chalk/popover.css';
+@import '../../../theme-chalk/src/popover.css';
 </style>

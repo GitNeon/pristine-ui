@@ -23,6 +23,7 @@
     "@pristine-ui/hooks": "workspace:^",
     "@pristine-ui/theme-chalk": "workspace:^",
     "@pristine-ui/utils": "workspace:^",
+    "dayjs": "^1.11.13",
     "vue": "^3.4.21",
     "vue-router": "^4.3.3"
   },

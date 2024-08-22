@@ -26,5 +26,5 @@ const { _class, ref_btn, handleClick } = useButton(props, emit);
 </template>
 
 <style scoped lang="css">
-@import "../../../theme-chalk/button.css";
+@import "../../../theme-chalk/src/button.css";
 </style>
