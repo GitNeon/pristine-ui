@@ -1,0 +1,36 @@
+.date-panel-month-container {
+  width: 335px;
+}
+
+.date-panel-table tr,th,td {
+  font-weight: var(--base-font-weight);
+  font-size: var(--base-font-size);
+  border: 1px solid black;
+  text-align: center;
+}
+
+.date-panel-table th, td {
+  padding: 6px 8px;
+}
+
+.date-panel-month-control {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 28px 28px 1fr 28px 28px;
+  align-items: center;
+  justify-items: center;
+  font-size: var(--medium-font-size);
+}
+
+.date-panel-month-control div {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.off-text {
+  color: #a8abb2;
+}
+
+.year-span {
+  margin-right: 10px;
+}
