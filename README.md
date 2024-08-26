@@ -14,14 +14,14 @@
 
 
 ## 二、Git提交规范
-🎉 add: 添加新的文件/页面/组件
-🎨 update: 更新页面/组件 UI 样式
-🔥 replace: 替换文案/修正错别字
-🔨 bug: 修复 bug
-🚀 refactor: 重构/优化代码
-🚑 revert: 撤销代码
-♻️ clean: 清理多余的文件/代码
-💩 bad: 修改别人编写的代码
-🔀 merge: 代码合并
-🚸 api: 对接后端接口/模拟接口
-🚧 working: 该文件正在维护中，请勿修改
+🎉 add: 添加新的文件/页面/组件 <br>
+🎨 update: 更新页面/组件 UI 样式 <br>
+🔥 replace: 替换文案/修正错别字 <br>
+🔨 bug: 修复 bug <br>
+🚀 refactor: 重构/优化代码 <br>
+🚑 revert: 撤销代码 <br>
+♻️ clean: 清理多余的文件/代码 <br>
+💩 bad: 修改别人编写的代码 <br>
+🔀 merge: 代码合并 <br>
+🚸 api: 对接后端接口/模拟接口 <br>
+🚧 working: 该文件正在维护中，请勿修改 <br>
