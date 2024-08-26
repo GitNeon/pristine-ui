@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LoadingIcon from '../style/loading.svg';
+import LoadingIcon from '../../base/icon/loading.svg';
 import type { ButtonEmit, ButtonProps } from './button.ts';
 import { useButton } from './use-button.ts';
 
