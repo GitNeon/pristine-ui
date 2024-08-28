@@ -1,5 +1,5 @@
 .date-panel-container {
-  width: 321px;
+  width: 280px;
   padding: 10px;
 }
 
@@ -12,6 +12,10 @@
   box-shadow: 0 0 12px rgba(0, 0, 0, .12);
 }
 
+.date-panel-table {
+  border-collapse: collapse;
+}
+
 .date-panel-table tr,th,td {
   font-weight: var(--base-font-weight);
   font-size: var(--base-font-size);
@@ -19,16 +23,23 @@
 }
 
 .date-panel-table th, td {
-  padding: 8px 8px;
+  padding: 6px;
 }
 
 .date-panel-table tbody td {
   cursor: pointer;
-  border-radius: 2px;
 }
 
-.date-panel-table tbody td:hover {
+.date-panel-table thead th {
+  border-bottom: var(--base-border);
+}
+
+.date-panel-table tbody td .cell:hover {
   color: var(--primary-color-3);
+}
+
+.date-panel-table tbody td .cell.selected:hover {
+  color: var(--white-color);
 }
 
 .date-panel-control {
@@ -54,6 +65,41 @@
   color: #a8abb2;
 }
 
+.cell {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  user-select: none;
+}
+
+.cell.selected {
+  background-color: var(--primary-color-3);
+  color: var(--white-color);
+  border-radius: 2px;
+}
+
 .year-span {
   margin-right: 10px;
+}
+
+.date-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5px;
+  border-top: var(--base-border);
+  gap: 8px;
+}
+
+.date-mini-button {
+  border: var(--base-border);
+  border-radius: var(--base-border-radius);
+  padding: 2px 4px;
+  font-size: var(--small-font-size);
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.date-mini-button:hover {
+  border-color: var(--primary-color-2);
 }

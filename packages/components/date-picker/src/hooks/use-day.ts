@@ -13,6 +13,7 @@ export function useDay() {
   const month = ref<string>('');
   const weeks = ref<string[]>([]);
   const dayList = ref<DayItem[][]>([]);
+  const selectList = ref<string[]>([]);
 
   const getCurrentDate = (customDate = '', fmt = DEFAULT_YM_FORMAT) => customDate ? dayjs(customDate, fmt) : dayjs();
 
@@ -169,7 +170,32 @@ export function useDay() {
     const target = (event.target as HTMLElement).closest('td');
     if (!target)
       return;
-    target.className.concat('selected');
+    const cell = target.children[0]!;
+    const { dateValue = '' } = target.dataset;
+    if (cell.className.includes('selected')) {
+      const index = selectList.value.indexOf(dateValue);
+      if (index !== -1) {
+        selectList.value.splice(index, 1);
+      }
+    }
+    else {
+      selectList.value.push(dateValue);
+    }
+  };
+
+  const handleThisDate = () => {
+    const thisYear = getCurrentDate().format(DEFAULT_Y_FORMAT);
+    const thisMonth = getCurrentDate().format(DEFAULT_M_FORMAT);
+    const currentDate = getCurrentDate().format(DEFAULT_FORMAT);
+    year.value = thisYear;
+    month.value = thisMonth;
+    getDayList(`${thisYear}-${thisMonth}`);
+    selectList.value = [];
+    selectList.value.push(currentDate);
+  };
+
+  const handleClear = () => {
+    selectList.value = [];
   };
 
   onBeforeMount(() => {
@@ -184,8 +210,11 @@ export function useDay() {
     month,
     weeks,
     dayList,
+    selectList,
     moveYear,
     moveMonth,
     handlePickDate,
+    handleThisDate,
+    handleClear,
   };
 }

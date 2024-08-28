@@ -9,8 +9,18 @@ defineOptions({
   name: 'DayTablePanel',
 });
 
-const { year, month, weeks, dayList, moveYear, moveMonth, handlePickDate }
-  = useDay();
+const {
+  year,
+  month,
+  weeks,
+  dayList,
+  selectList,
+  moveYear,
+  moveMonth,
+  handlePickDate,
+  handleThisDate,
+  handleClear,
+} = useDay();
 </script>
 
 <template>
@@ -46,17 +56,30 @@ const { year, month, weeks, dayList, moveYear, moveMonth, handlePickDate }
       <tbody>
         <tr v-for="(day, index) in dayList" :key="index">
           <td
-            v-for="dayItem in day"
+            v-for="(dayItem, innerIndex) in day"
             :key="dayItem.label"
-            :class="{ 'off-text': !dayItem.thisMonth }"
+            :class="{
+              'off-text': !dayItem.thisMonth,
+            }"
             :data-date-value="dayItem.value"
-            :data-date-row="index"
+            :data-date-index="`${index}-${innerIndex}`"
           >
-            {{ dayItem.label }}
+            <div
+              class="cell"
+              :class="{
+                selected: selectList.includes(dayItem.value),
+              }"
+            >
+              {{ dayItem.label }}
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
+    <div class="date-panel-footer">
+      <div class="date-mini-button" @click="handleThisDate">今天</div>
+      <div class="date-mini-button" @click="handleClear">清除</div>
+    </div>
   </div>
 </template>
 
