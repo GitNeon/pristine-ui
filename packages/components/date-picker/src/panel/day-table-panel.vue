@@ -44,7 +44,7 @@ const {
       <img
         :src="fastNextIcon"
         alt="year-fast-next"
-        @click="moveMonth('next')"
+        @click="moveYear('next')"
       >
     </div>
     <table class="date-panel-table" @click="handlePickDate">

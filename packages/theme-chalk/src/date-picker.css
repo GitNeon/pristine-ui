@@ -1,6 +1,7 @@
 .date-panel-container {
   width: 280px;
   padding: 10px;
+  user-select: none;
 }
 
 .d-border {
@@ -69,7 +70,6 @@
   width: 28px;
   height: 28px;
   line-height: 28px;
-  user-select: none;
 }
 
 .cell.selected {
@@ -97,7 +97,6 @@
   font-size: var(--small-font-size);
   transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
   cursor: pointer;
-  user-select: none;
 }
 
 .date-mini-button:hover {
