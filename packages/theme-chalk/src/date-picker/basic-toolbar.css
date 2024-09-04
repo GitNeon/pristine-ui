@@ -1,0 +1,20 @@
+.date-panel-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 5px;
+  border-top: var(--base-border);
+  gap: 8px;
+}
+
+.date-panel-toolbar .toolbar-button {
+  border: var(--base-border);
+  border-radius: var(--base-border-radius);
+  padding: 2px 4px;
+  font-size: var(--small-font-size);
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+  cursor: pointer;
+}
+
+.date-panel-toolbar .toolbar-button:hover {
+  border-color: var(--primary-color-2);
+}

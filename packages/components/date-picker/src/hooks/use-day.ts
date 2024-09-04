@@ -1,85 +1,55 @@
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 import { dayjs } from '../day-js-shared.ts';
-import type { ChangeDateOption, DayItem, DirectionType } from '../date-picker.ts';
+import type { ContentItem, DirectionType } from '../date-picker.ts';
+import {
+  DEFAULT_FORMAT,
+  DEFAULT_M_FORMAT,
+  DEFAULT_YM_FORMAT,
+  DEFAULT_Y_FORMAT,
+  changeDate,
+  getCurrentDate,
+  useSelect,
+} from './public.ts';
+import { chunkList } from '@/utils/data.ts';
 
 const MAX_DAY = 42;
-const DEFAULT_FORMAT = 'YYYY-MM-DD';
-const DEFAULT_YM_FORMAT = 'YYYY-MM';
-const DEFAULT_Y_FORMAT = 'YYYY';
-const DEFAULT_M_FORMAT = 'MM';
 
 export function useDay() {
   const year = ref<string>('');
   const month = ref<string>('');
-  const weeks = ref<string[]>([]);
-  const dayList = ref<DayItem[][]>([]);
-  const selectList = ref<string[]>([]);
+  const weeks = ref<ContentItem[][]>([]);
 
-  const getCurrentDate = (customDate = '', fmt = DEFAULT_YM_FORMAT) => customDate ? dayjs(customDate, fmt) : dayjs();
-
-  const baseDateChange = (option: ChangeDateOption) => {
-    const { direction, dateType, format, updateValue, num } = option;
-    if (direction === 'current') {
-      const currentDate = getCurrentDate();
-      updateValue.value = currentDate.format(format);
-    }
-    else if (direction === 'next') {
-      const currentDate = getCurrentDate(updateValue.value, format);
-      updateValue.value = currentDate.add(num, dateType).format(format);
-    }
-    else if (direction === 'prev') {
-      const currentDate = getCurrentDate(updateValue.value, format);
-      updateValue.value = currentDate.subtract(num, dateType).format(format);
-    }
-  };
-
-  const changeYear = (option?: Partial<ChangeDateOption>) => {
-    const opt = {
-      direction: 'current',
-      dateType: 'year',
-      format: DEFAULT_Y_FORMAT,
-      updateValue: year,
-      num: 1,
-    };
-    baseDateChange(Object.assign(opt, option));
-  };
-
-  const changeMonth = (option?: Partial<ChangeDateOption>) => {
-    const opt = {
-      direction: 'current',
-      dateType: 'month',
-      format: DEFAULT_M_FORMAT,
-      updateValue: month,
-      num: 1,
-    };
-    baseDateChange(Object.assign(opt, option));
-  };
+  const { selectList, setSelectList, clearSelect, handleSelect } = useSelect();
 
   const initWeeksName = () => {
-    const currentDate = dayjs();
-    const weeksName = currentDate.locale('zh-cn').localeData().weekdaysShort();
+    const weeksName = dayjs().locale('zh-cn').localeData().weekdaysShort();
     if (weeksName[0] === '周日') {
       weeksName.push(weeksName.shift() || '');
     }
-    weeks.value = weeksName;
+
+    const weekNameList: ContentItem[] = weeksName.map((item, index) => ({
+      label: item,
+      value: `${index + 1}`,
+      isCurrentDate: false,
+      checked: false,
+    }));
+    weeks.value = [weekNameList];
   };
 
-  // 获取指定年月第一天、最后一天、全部天数的数据集合
-  const getMonthDay = (customDate = '') => {
-    const dates = [];
-    const days = [];
+  // 计算指定年月全部天数
+  const calculateMonthDays = (customDate = '') => {
+    const resultList = [];
     const currentDate = getCurrentDate(customDate);
     const startDay = currentDate.startOf('month').date();
     const endDay = currentDate.endOf('month').date();
     const month = currentDate.format(DEFAULT_YM_FORMAT);
 
     for (let i = startDay; i <= endDay; i++) {
-      const day = i.toString().length === 1 ? `0${i}` : i.toString();
-      dates.push(`${month}-${day}`);
-      days.push(i.toString());
+      const day = `${i}`.length === 1 ? `0${i}` : `${i}`;
+      resultList.push(`${month}-${day}`);
     }
 
-    return { month, startDay: `${startDay}`, endDay: `${endDay}`, days, dates };
+    return resultList;
   };
 
   // 获取往前推的天数集合
@@ -110,78 +80,31 @@ export function useDay() {
     return dates;
   };
 
-  const getSplitDate = (date: string) => {
-    const _split = date.split('-');
-    const year = _split[0];
-    const month = _split[1];
-    const day = _split[2];
-    return { year, month, day };
-  };
-
-  const getWrapDateList = (dates: string[], config = {}) => {
+  const genContentList = (dates: string[], config = {}) => {
     return dates.map((item) => {
-      const { day } = getSplitDate(item);
-      const _config = {
+      const day = item.split('-')[2];
+      const contentItem = {
         label: day.replace(/^0+/, ''),
         value: item,
-        thisMonth: false,
+        isCurrentDate: false,
         checked: false,
       };
-      return Object.assign(_config, config);
+      return Object.assign(contentItem, config);
     });
   };
 
-  const chunkDayList = (dayList: DayItem[], chunkSize = 7) => {
-    const result = [];
-    for (let i = 0; i < dayList.length; i += chunkSize) {
-      const chunk = dayList.slice(i, i + chunkSize);
-      result.push(chunk);
-    }
-    return result;
-  };
-
-  const getDayList = (customDate = '') => {
-    const { dates } = getMonthDay(customDate);
-    const prevDayList = getWrapDateList(getPrevDaysOfMonth(customDate));
-    const nextDayNum = MAX_DAY - dates.length - prevDayList.length;
-    const nextDayList = getWrapDateList(getNextDaysOfMonth(nextDayNum, customDate));
-    const currentDayList = getWrapDateList(dates, { thisMonth: true });
-    const allDayList: DayItem[] = prevDayList.concat(currentDayList).concat(nextDayList);
-    dayList.value = chunkDayList(allDayList);
-  };
-
-  const moveYear = (direction: DirectionType) => {
-    changeYear({ direction });
-    getDayList(`${year.value}-${month.value}`);
-  };
-
-  const moveMonth = (direction: DirectionType) => {
-    changeMonth({ direction });
-    if (month.value === '01' && direction === 'next') {
-      year.value = `${Number(year.value) + 1}`;
-    }
-    else if (month.value === '12' && direction === 'prev') {
-      year.value = `${Number(year.value) - 1}`;
-    }
-    getDayList(`${year.value}-${month.value}`);
-  };
-
-  const handlePickDate = (event: MouseEvent) => {
-    const target = (event.target as HTMLElement).closest('td');
-    if (!target)
-      return;
-    const cell = target.children[0]!;
-    const { dateValue = '' } = target.dataset;
-    if (cell.className.includes('selected')) {
-      const index = selectList.value.indexOf(dateValue);
-      if (index !== -1) {
-        selectList.value.splice(index, 1);
-      }
-    }
-    else {
-      selectList.value.push(dateValue);
-    }
-  };
+  const dayList = computed(() => {
+    const YM = `${year.value}-${month.value}`;
+    const monthDays = calculateMonthDays(`${year.value}-${month.value}`);
+    const prevList = genContentList(getPrevDaysOfMonth(YM));
+    const nextNum = MAX_DAY - monthDays.length - prevList.length;
+    const nextList = genContentList(getNextDaysOfMonth(nextNum, YM));
+    const currentList = genContentList(monthDays, { isCurrentDate: true });
+    const allDayList: ContentItem[] = prevList
+      .concat(currentList)
+      .concat(nextList);
+    return chunkList(allDayList, 7);
+  });
 
   const handleThisDate = () => {
     const thisYear = getCurrentDate().format(DEFAULT_Y_FORMAT);
@@ -189,20 +112,38 @@ export function useDay() {
     const currentDate = getCurrentDate().format(DEFAULT_FORMAT);
     year.value = thisYear;
     month.value = thisMonth;
-    getDayList(`${thisYear}-${thisMonth}`);
-    selectList.value = [];
-    selectList.value.push(currentDate);
+    setSelectList([currentDate]);
   };
 
-  const handleClear = () => {
-    selectList.value = [];
+  const changeYear = (direction: DirectionType) => {
+    changeDate({
+      direction,
+      dateType: 'year',
+      format: DEFAULT_Y_FORMAT,
+      updateValue: year,
+      num: 1,
+    });
+  };
+
+  const changeMonth = (direction: DirectionType) => {
+    changeDate({
+      direction,
+      dateType: 'month',
+      format: DEFAULT_M_FORMAT,
+      updateValue: month,
+      num: 1,
+    });
+    if (month.value === '01' && direction === 'next') {
+      year.value = `${Number(year.value) + 1}`;
+    }
+    else if (month.value === '12' && direction === 'prev') {
+      year.value = `${Number(year.value) - 1}`;
+    }
   };
 
   onBeforeMount(() => {
     initWeeksName();
-    changeYear();
-    changeMonth();
-    getDayList();
+    handleThisDate();
   });
 
   return {
@@ -211,10 +152,10 @@ export function useDay() {
     weeks,
     dayList,
     selectList,
-    moveYear,
-    moveMonth,
-    handlePickDate,
+    changeYear,
+    changeMonth,
+    handleSelect,
     handleThisDate,
-    handleClear,
+    clearSelect,
   };
 }

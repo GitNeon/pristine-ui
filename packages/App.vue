@@ -1,8 +1,28 @@
 <script setup lang="ts">
-import DayTablePanel from '@/components/date-picker/src/panel/day-table-panel.vue';
+import PanelDay from '@/components/date-picker/src/panel/panel-day.vue';
+import PanelYear from '@/components/date-picker/src/panel/panel-year.vue';
+import PanelMonth from '@/components/date-picker/src/panel/panel-month.vue';
 </script>
 
 <template>
-  <div>This is Pristine UI Project</div>
-  <DayTablePanel />
+  <div class="test-title">Pristine UI Component Test Page</div>
+  <h3>日期面板</h3>
+  <PanelDay />
+  <h3>年份面板</h3>
+  <PanelYear />
+  <h3>月份面板</h3>
+  <PanelMonth />
 </template>
+
+<style>
+.test-title {
+  margin: 10px;
+  background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(to right, deepskyblue, greenyellow, lightgreen);
+  color: transparent;
+  font-size: 48px;
+  font-weight: bolder;
+  text-align: center;
+}
+</style>

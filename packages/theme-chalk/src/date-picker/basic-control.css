@@ -1,0 +1,25 @@
+.date-panel-control {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 28px 28px 200px 28px 28px;
+  align-items: center;
+  justify-items: center;
+  font-size: var(--medium-font-size);
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.date-panel-control div {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.date-panel-control img {
+  width: 15px;
+  cursor: pointer;
+}
+
+.date-panel-control .center-control {
+  display: flex;
+  gap: 10px;
+}
