@@ -8,23 +8,35 @@ export type DateType = 'day' | 'month' | 'quarter' | 'year';
 
 export type ControlShowType = 'inner-prev' | 'inner-next' | 'outer-prev' | 'outer-next';
 
-export interface DayItem {
+export interface DatePickerProps {
   /**
-   * @description 用于日期面板显示的label名
+   * @description 是否显示边框
    */
-  label: string;
+  border: boolean;
+  /**
+   * @description 是否显示阴影
+   */
+  shadow: boolean;
+  /**
+   * @description 日期类型
+   */
+  dateType?: DateType;
   /**
    * @description 日期值
    */
-  value: string;
+  value: string | string[];
   /**
-   * @description 是否本月,用于样式判断
+   * @description 是否多选
    */
-  thisMonth: boolean;
+  multiple: boolean;
   /**
-   * @description 是否选中
+   * @description 日期格式化
    */
-  checked: boolean;
+  format?: string;
+  /**
+   * @description 是否禁用
+   */
+  disabled?: boolean;
 }
 
 export interface ContentItem {
